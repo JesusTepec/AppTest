@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AppTest</string>
+    <string name="description_logo">logo</string>
+    <string name="text_button_send">Send</string>
+    <string name="background_image_description">background image</string>
+    <string name="hint_password">password</string>
+    <string name="hint_username">username</string>
+</resources>
