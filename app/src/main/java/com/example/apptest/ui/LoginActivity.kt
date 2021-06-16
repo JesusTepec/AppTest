@@ -2,14 +2,15 @@ package ui
 
 import com.example.apptest.App
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.apptest.R
 import com.example.apptest.databinding.ActivityLoginBinding
 import es.dmoral.toasty.Toasty
-import viewmodel.LoginViewModel
-import viewmodel.factory.LoginVMFactory
+import com.example.apptest.viewmodel.LoginViewModel
+import com.example.apptest.viewmodel.factory.LoginVMFactory
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
@@ -30,19 +31,33 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         binding.buttonSend.setOnClickListener {
-            validateDataLogin(binding.inputEmail.text.toString(), binding.inputPassword.text.toString())
+            validateDataLogin(
+                binding.inputEmail.text.toString(),
+                binding.inputPassword.text.toString()
+            )
         }
     }
 
     private fun validateDataLogin(email: String, password: String) {
-        if(email.isNotBlank() && password.isNotBlank()) {
-            doLogin()
+        if (email.isNotBlank() && password.isNotBlank()) {
+            doLogin(email, password)
         } else {
             Toasty.error(this, "El campo Email o Pasword no deben quedar vacios").show()
         }
     }
 
-    private fun doLogin() {
-        viewModel.login()
+    private fun doLogin(email: String, password: String) {
+        viewModel.login(email, password).observe(this, {
+            it?.let { isLogin ->
+                if (isLogin)
+                    Toasty.success(this@LoginActivity, "Bienvenido").show()
+                else
+                    Toasty.error(
+                        this@LoginActivity,
+                        "Algo salio mal, vuelva a intentar por favor",
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
+        })
     }
 }
