@@ -1,4 +1,4 @@
-package rest
+package com.example.apptest.rest
 
 import com.example.apptest.model.LoginRequest
 import com.example.apptest.model.LoginResponse
@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface ApiService {
+interface UserService {
 
     @POST("login")
     fun login(

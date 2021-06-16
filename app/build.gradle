@@ -69,4 +69,7 @@ dependencies {
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation "com.readystatesoftware.chuck:library-no-op:1.1.0"
 
+    //EASY PREFRENCES
+    implementation 'com.pixplicity.easyprefs:library:1.9.0'
+
 }

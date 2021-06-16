@@ -61,6 +61,7 @@
                     android:id="@+id/inputPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Developer.2021"
                     android:hint="@string/hint_password"
                     android:inputType="textPassword" />
 

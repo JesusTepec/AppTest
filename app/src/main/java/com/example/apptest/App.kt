@@ -1,9 +1,12 @@
 package com.example.apptest
 
 import android.app.Application
-import di.AppComponent
-import di.AppRepositoryModule
-import di.DaggerAppComponent
+import android.content.ContextWrapper
+import com.example.apptest.di.AppComponent
+import com.example.apptest.di.DaggerAppComponent
+import com.example.apptest.di.MovementsRepositoryModule
+import com.example.apptest.di.UserRepositoryModule
+import com.pixplicity.easyprefs.library.Prefs
 
 class App : Application() {
 
@@ -13,7 +16,15 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         appCompoment = DaggerAppComponent.builder()
-            .appRepositoryModule(AppRepositoryModule(this))
+            .userRepositoryModule(UserRepositoryModule(this))
+            .movementsRepositoryModule(MovementsRepositoryModule(this))
+            .build()
+
+        Prefs.Builder()
+            .setContext(this)
+            .setMode(ContextWrapper.MODE_PRIVATE)
+            .setPrefsName(packageName)
+            .setUseDefaultSharedPreference(true)
             .build()
     }
 }

@@ -1,5 +1,6 @@
 package ui
 
+import android.content.Intent
 import com.example.apptest.App
 import android.os.Bundle
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.apptest.R
 import com.example.apptest.databinding.ActivityLoginBinding
+import com.example.apptest.ui.MainActivity
 import es.dmoral.toasty.Toasty
 import com.example.apptest.viewmodel.LoginViewModel
 import com.example.apptest.viewmodel.factory.LoginVMFactory
@@ -49,8 +51,11 @@ class LoginActivity : AppCompatActivity() {
     private fun doLogin(email: String, password: String) {
         viewModel.login(email, password).observe(this, {
             it?.let { isLogin ->
-                if (isLogin)
+                if (isLogin) {
                     Toasty.success(this@LoginActivity, "Bienvenido").show()
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                }
                 else
                     Toasty.error(
                         this@LoginActivity,
